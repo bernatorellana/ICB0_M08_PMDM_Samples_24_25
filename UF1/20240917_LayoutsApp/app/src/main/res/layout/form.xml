@@ -23,6 +23,7 @@
             android:layout_marginRight="@dimen/padding_per_defecte"
             />
         <EditText
+            android:id="@+id/edtNom"
             android:layout_width="0dp"
             android:layout_weight="70"
             android:layout_height="wrap_content"
@@ -43,6 +44,7 @@
             android:layout_marginRight="@dimen/padding_per_defecte"
             />
         <EditText
+            android:id="@+id/edtCognoms"
             android:layout_width="0dp"
             android:layout_weight="70"
             android:layout_height="wrap_content"
@@ -63,6 +65,7 @@
             android:layout_marginRight="@dimen/padding_per_defecte"
             />
         <EditText
+            android:id="@+id/edtNIF"
             android:layout_width="0dp"
             android:layout_weight="70"
             android:layout_height="wrap_content"
@@ -72,6 +75,7 @@
 
 
     <RadioGroup
+        android:id="@+id/rdgSexe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -80,19 +84,23 @@
         android:background="@drawable/xaxi_fondo"
         >
         <RadioButton
+            android:id="@+id/rdoH"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Home"></RadioButton>
         <RadioButton
+            android:id="@+id/rdoD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dona"></RadioButton>
         <RadioButton
+            android:id="@+id/rdoA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="N/C"></RadioButton>
     </RadioGroup>
     <Spinner
+        android:id="@+id/spnProvincies"
         android:padding="@dimen/padding_per_defecte"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
@@ -107,20 +115,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="@dimen/padding_per_defecte">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:background="@drawable/boto_bck_petit_9">
-
-
+            android:id="@+id/llyPrev"
+            android:background="@drawable/boto_bck_petit">
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:src="@drawable/baseline_arrow_back_ios_24">
-
+            </ImageView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -147,11 +155,12 @@
 <!--            android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"-->
 <!--            ></Button>-->
         <LinearLayout
+            android:id="@+id/llyNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:background="@drawable/boto_bck_petit_9">
+            android:background="@drawable/boto_bck_petit">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -163,7 +172,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:src="@drawable/baseline_arrow_forward_ios_24">
+                android:src="@drawable/baseline_arrow_forward_ios_24"></ImageView>
         </LinearLayout>
 
     </LinearLayout>

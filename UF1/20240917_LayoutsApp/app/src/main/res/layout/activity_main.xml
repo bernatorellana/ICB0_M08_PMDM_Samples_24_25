@@ -10,6 +10,7 @@
     android:padding="@dimen/padding_per_defecte">
 
     <ImageView
+        android:id="@+id/imgPhoto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
