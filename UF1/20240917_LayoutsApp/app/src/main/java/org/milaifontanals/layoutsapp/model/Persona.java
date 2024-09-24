@@ -14,11 +14,11 @@ public class Persona {
     public static List<Persona> getPersones(){
         if(persones == null) {
             persones = new ArrayList<>();
-            persones.add(new Persona(R.drawable.gremlin, "PacoX","Gutiérrez", "1111111H",Sexe.DONA, null));
-            persones.add(new Persona(R.drawable.female1,"Maria", "Nana", "2222222H",Sexe.DONA, null));
-            persones.add(new Persona(R.drawable.gizmo,"Joan", "Gómez", "3333333H",Sexe.HOME, null));
-            persones.add(new Persona(R.drawable.orejotas,"Pep", "Pérez", "144444444H",Sexe.HOME, null));
-            persones.add(new Persona(R.drawable.female2,"Sara", "Sánchez", "5555555H",Sexe.ALTRES, null));
+            persones.add(new Persona(R.drawable.gremlin, "PacoX","Gutiérrez", "1111111H",Sexe.DONA, Provincia.getProvincies().get(0)));
+            persones.add(new Persona(R.drawable.female1,"Maria", "Nana", "2222222H",Sexe.DONA, Provincia.getProvincies().get(1)));
+            persones.add(new Persona(R.drawable.gizmo,"Joan", "Gómez", "3333333H",Sexe.HOME, Provincia.getProvincies().get(2)));
+            persones.add(new Persona(R.drawable.orejotas,"Pep", "Pérez", "144444444H",Sexe.HOME, Provincia.getProvincies().get(0)));
+            persones.add(new Persona(R.drawable.female2,"Sara", "Sánchez", "5555555H",Sexe.ALTRES, Provincia.getProvincies().get(1)));
         }
         return persones;
     }
