@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,10 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import org.milaifontanals.layoutsapp.model.Persona;
+import org.milaifontanals.layoutsapp.model.Sexe;
+import org.milaifontanals.layoutsapp.utils.MyTextWatcher;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,6 +76,51 @@ public class MainActivity extends AppCompatActivity {
             }
             showCurrentUser();
         });
+
+        edtNIF.addTextChangedListener(new MyTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+                    NIF_TextChangedListener(editable);
+            }
+        });
+        edtNom.addTextChangedListener( new MyTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Nom_TextChangedListener(editable);
+            }
+        });
+        edtCognoms.addTextChangedListener( new MyTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Cognom_TextChangedListener(editable);
+            }
+        });
+
+        rdgSexe.setOnCheckedChangeListener((radioGroup, checkedId) -> {
+            Persona actual = Persona.getPersones().get(indexPersonatgeActual);
+
+            HashMap<Integer, Sexe> mapaSexe = new HashMap<>();
+            mapaSexe.put(R.id.rdoA, Sexe.ALTRES);
+            mapaSexe.put(R.id.rdoH, Sexe.HOME);
+            mapaSexe.put(R.id.rdoD, Sexe.DONA);
+
+            actual.setSexe(mapaSexe.get(checkedId));
+        });
+    }
+
+    private void Cognom_TextChangedListener(Editable editable) {
+        Persona actual = Persona.getPersones().get(indexPersonatgeActual);
+        actual.setCognoms(editable.toString());
+    }
+
+    private void Nom_TextChangedListener(Editable editable) {
+        Persona actual = Persona.getPersones().get(indexPersonatgeActual);
+        actual.setNom(editable.toString());
+    }
+
+    private void NIF_TextChangedListener(Editable editable) {
+        Persona actual = Persona.getPersones().get(indexPersonatgeActual);
+        actual.setNIF(editable.toString());
     }
 
     private void creacioIds() {
