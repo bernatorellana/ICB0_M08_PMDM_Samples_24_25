@@ -12,6 +12,7 @@ import android.provider.CalendarContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import org.milaifontanals.layoutsapp.model.Persona;
+import org.milaifontanals.layoutsapp.model.Provincia;
 import org.milaifontanals.layoutsapp.model.Sexe;
 import org.milaifontanals.layoutsapp.utils.MyTextWatcher;
 
@@ -46,21 +48,32 @@ public class MainActivity extends AppCompatActivity {
 
 
     private int indexPersonatgeActual = 0;
+    private ArrayAdapter<Provincia> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         creacioIds();
-        //--------------------------------------------------------------
         showCurrentUser();
+        programarListeners();
+        omplirSpinner();
+    }
 
-        /*llyNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // codi del click
-            }
-        });*/
+    private void omplirSpinner() {
+
+        adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item,Provincia.getProvincies());
+        spnProvincies.setAdapter(adapter);
+    }
+
+    private void programarListeners() {
+    /*llyNext.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            // codi del click
+        }
+    });*/
         llyNext.setOnClickListener(view -> {
             //codi del click
             this.indexPersonatgeActual++;
@@ -141,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void showCurrentUser() {
        Persona actual = Persona.getPersones().get(indexPersonatgeActual);
+       int idx = Provincia.getProvincies().indexOf(actual.getProvincia());
+       spnProvincies.setSelection(idx);
 
        imgPhoto.setImageResource(actual.getImatge());
        edtNom.setText(actual.getNom());
