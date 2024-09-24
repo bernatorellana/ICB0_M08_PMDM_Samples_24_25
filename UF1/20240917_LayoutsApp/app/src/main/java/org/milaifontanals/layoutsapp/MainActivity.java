@@ -12,6 +12,7 @@ import android.provider.CalendarContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private void omplirSpinner() {
 
         adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item,Provincia.getProvincies());
+                android.R.layout.simple_list_item_1,Provincia.getProvincies());
         spnProvincies.setAdapter(adapter);
     }
 
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         rdgSexe.setOnCheckedChangeListener((radioGroup, checkedId) -> {
-            Persona actual = Persona.getPersones().get(indexPersonatgeActual);
+            Persona actual = getPersonaActual();
 
             HashMap<Integer, Sexe> mapaSexe = new HashMap<>();
             mapaSexe.put(R.id.rdoA, Sexe.ALTRES);
@@ -119,20 +120,38 @@ public class MainActivity extends AppCompatActivity {
 
             actual.setSexe(mapaSexe.get(checkedId));
         });
+
+        spnProvincies.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+                Persona actual = getPersonaActual();
+                actual.setProvincia(Provincia.getProvincies().get(pos));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Persona actual = getPersonaActual();
+                actual.setProvincia(null);
+            }
+        });
+    }
+
+    private Persona getPersonaActual() {
+        return Persona.getPersones().get(indexPersonatgeActual);
     }
 
     private void Cognom_TextChangedListener(Editable editable) {
-        Persona actual = Persona.getPersones().get(indexPersonatgeActual);
+        Persona actual = getPersonaActual();
         actual.setCognoms(editable.toString());
     }
 
     private void Nom_TextChangedListener(Editable editable) {
-        Persona actual = Persona.getPersones().get(indexPersonatgeActual);
+        Persona actual = getPersonaActual();
         actual.setNom(editable.toString());
     }
 
     private void NIF_TextChangedListener(Editable editable) {
-        Persona actual = Persona.getPersones().get(indexPersonatgeActual);
+        Persona actual = getPersonaActual();
         actual.setNIF(editable.toString());
     }
 
@@ -153,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showCurrentUser() {
-       Persona actual = Persona.getPersones().get(indexPersonatgeActual);
+       Persona actual = getPersonaActual();
        int idx = Provincia.getProvincies().indexOf(actual.getProvincia());
        spnProvincies.setSelection(idx);
 

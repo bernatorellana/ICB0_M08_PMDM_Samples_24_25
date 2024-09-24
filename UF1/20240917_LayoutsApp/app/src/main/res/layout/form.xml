@@ -22,13 +22,19 @@
             android:textAlignment="textEnd"
             android:layout_marginRight="@dimen/padding_per_defecte"
             />
-        <EditText
-            android:id="@+id/edtNom"
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_weight="70"
-            android:layout_height="wrap_content"
-            >
-        </EditText>
+            android:layout_height="wrap_content">
+            <EditText
+                android:hint="Nom"
+                android:id="@+id/edtNom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                ></EditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
