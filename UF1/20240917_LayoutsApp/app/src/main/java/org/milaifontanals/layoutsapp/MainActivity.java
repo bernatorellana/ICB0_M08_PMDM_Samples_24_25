@@ -23,11 +23,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import org.milaifontanals.layoutsapp.databinding.ActivityMainBinding;
 import org.milaifontanals.layoutsapp.model.Persona;
 import org.milaifontanals.layoutsapp.model.Provincia;
 import org.milaifontanals.layoutsapp.model.Sexe;
 import org.milaifontanals.layoutsapp.utils.MyTextWatcher;
+import org.milaifontanals.layoutsapp.utils.Utils;
 
 import java.util.HashMap;
 
@@ -81,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
             showCurrentUser();
         });
 
+        binding.lyoForm.edtNIF.setOnFocusChangeListener((view, focus) -> {
+            binding.lyoForm.edtNIF.setText(
+                    binding.lyoForm.edtNIF.getText().toString().toUpperCase());
+        } );
+
         binding.lyoForm.edtNIF.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
@@ -130,19 +138,46 @@ public class MainActivity extends AppCompatActivity {
         return Persona.getPersones().get(indexPersonatgeActual);
     }
 
+
+    private boolean validaNomOCognom(Editable editable, TextInputLayout til, String err){
+        String nom = editable.toString();
+        if(nom.trim().length()<2){
+            til.setError(err);
+            return false;
+        } else {
+            // És correcte, desem canvis.
+            til.setError("");
+            Persona actual = getPersonaActual();
+            return true;
+        }
+    }
     private void Cognom_TextChangedListener(Editable editable) {
-        Persona actual = getPersonaActual();
-        actual.setCognoms(editable.toString());
+        if(validaNomOCognom(editable,binding.lyoForm.tilCognoms, "Cognom erroni" )){
+            Persona actual = getPersonaActual();
+            actual.setCognoms(editable.toString());
+        }
     }
 
     private void Nom_TextChangedListener(Editable editable) {
-        Persona actual = getPersonaActual();
-        actual.setNom(editable.toString());
+        if(validaNomOCognom(editable,binding.lyoForm.tilNom , "Nom erroni")){
+            Persona actual = getPersonaActual();
+            actual.setNom(editable.toString());
+        }
     }
 
     private void NIF_TextChangedListener(Editable editable) {
-        Persona actual = getPersonaActual();
-        actual.setNIF(editable.toString());
+        String NIF = editable.toString().toUpperCase();
+
+        boolean NIFCorrecte = Utils.validarDNI(NIF);
+
+        if(!NIFCorrecte){
+            binding.lyoForm.tilNIF.setError("NIF incorrecte");
+        } else {
+            // És correcte, desem canvis.
+            binding.lyoForm.tilNIF.setError("");
+            Persona actual = getPersonaActual();
+            actual.setNIF(NIF);
+        }
     }
 
 
