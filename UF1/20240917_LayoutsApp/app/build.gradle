@@ -6,6 +6,10 @@ android {
     namespace 'org.milaifontanals.layoutsapp'
     compileSdk 33
 
+    buildFeatures {
+        viewBinding true
+    }
+
     defaultConfig {
         applicationId "org.milaifontanals.layoutsapp"
         minSdk 26

@@ -16,7 +16,7 @@
         android:padding="@dimen/padding_per_defecte"
         android:src="@drawable/gremlin"></ImageView>
 
-    <include layout="@layout/form"
+    <include layout="@layout/form"  android:id="@+id/lyoForm"
         android:padding="@dimen/padding_per_defecte"
         ></include>
 
