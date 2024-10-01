@@ -36,6 +36,12 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
+    private HashMap<Integer, Boolean> estatCamps = new HashMap<Integer,Boolean>(){{
+        put(R.id.edtNIF, true);
+        put(R.id.edtNom, true);
+        put(R.id.edtCognoms, true);
+    }};
+
     private int indexPersonatgeActual = 0;
     private ArrayAdapter<Provincia> adapter;
 
@@ -155,14 +161,22 @@ public class MainActivity extends AppCompatActivity {
         if(validaNomOCognom(editable,binding.lyoForm.tilCognoms, "Cognom erroni" )){
             Persona actual = getPersonaActual();
             actual.setCognoms(editable.toString());
+            estatCamps.put(R.id.edtCognoms, true);
+        } else {
+            estatCamps.put(R.id.edtCognoms, false);
         }
+        refrescaButons();
     }
 
     private void Nom_TextChangedListener(Editable editable) {
         if(validaNomOCognom(editable,binding.lyoForm.tilNom , "Nom erroni")){
             Persona actual = getPersonaActual();
             actual.setNom(editable.toString());
+            estatCamps.put(R.id.edtNom, true);
+        } else {
+            estatCamps.put(R.id.edtNom, false);
         }
+        refrescaButons();
     }
 
     private void NIF_TextChangedListener(Editable editable) {
@@ -172,12 +186,20 @@ public class MainActivity extends AppCompatActivity {
 
         if(!NIFCorrecte){
             binding.lyoForm.tilNIF.setError("NIF incorrecte");
+            estatCamps.put(R.id.edtNIF, false);
         } else {
             // És correcte, desem canvis.
             binding.lyoForm.tilNIF.setError("");
             Persona actual = getPersonaActual();
             actual.setNIF(NIF);
+            estatCamps.put(R.id.edtNIF, true);
         }
+        refrescaButons();
+    }
+
+    private void refrescaButons() {
+       boolean hiHaAlgunError =  estatCamps.containsValue(false);
+        mostrarBotons(hiHaAlgunError);
     }
 
 
@@ -199,11 +221,16 @@ public class MainActivity extends AppCompatActivity {
        RadioButton rb = (RadioButton)binding.lyoForm.rdgSexe.getChildAt(actual.getSexe().ordinal());
        rb.setChecked(true);
 
-        boolean prevActivat = (indexPersonatgeActual>0);
-        boolean nextActivat = indexPersonatgeActual<Persona.getPersones().size()-1;
+        refrescaButons();
+    }
+
+    private void mostrarBotons(boolean hiHaErrors) {
+        boolean prevActivat = !hiHaErrors && (indexPersonatgeActual>0);
+        boolean nextActivat = !hiHaErrors && indexPersonatgeActual<Persona.getPersones().size()-1;
         activa(binding.lyoForm.llyPrev, prevActivat);
         activa(binding.lyoForm.llyNext, nextActivat);
     }
+
     private void activa(Button b, boolean prevActivat) {
         b.setEnabled(prevActivat);
     }
