@@ -8,8 +8,9 @@ import android.os.Bundle;
 
 import org.milaifontanals.apprecyclerview.R;
 import org.milaifontanals.apprecyclerview.adapters.CardAdapter;
+import org.milaifontanals.apprecyclerview.model.Card;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CardAdapter.CardAdapterListener {
 
     RecyclerView rcyList;
     CardAdapter adapter;
@@ -22,11 +23,16 @@ public class MainActivity extends AppCompatActivity {
         // Configuració del RecyclerView
         rcyList = findViewById(R.id.rcyList);
         // indiquem que és una llista tipus "linial"
-        rcyList.setLayoutManager(new LinearLayoutManager(this));
+        rcyList.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL, false));
         rcyList.setHasFixedSize(true);
         //====================================================================
-        adapter = new CardAdapter();
+        adapter = new CardAdapter(this, this);
         rcyList.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onCardSelected(Card selected) {
 
     }
 }
