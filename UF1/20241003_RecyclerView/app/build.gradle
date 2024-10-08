@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace 'org.milaifontanals.apprecyclerview'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "org.milaifontanals.apprecyclerview"
         minSdk 26
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 

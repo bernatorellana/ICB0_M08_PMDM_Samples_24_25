@@ -36,7 +36,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         holder.txvName.setText(current.getName());
         holder.txvDesc.setText(current.getDesc());
         holder.imvPhoto.setImageResource(current.getDrawable());
-        holder.txvCost.setText(current.getElixirCost());
+        holder.txvCost.setText(""+current.getElixirCost());
     }
 
     @Override
