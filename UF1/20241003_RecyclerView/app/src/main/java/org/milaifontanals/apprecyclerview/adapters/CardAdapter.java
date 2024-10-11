@@ -26,6 +26,22 @@ import java.util.List;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
 
+    public void deleteSelectedItem() {
+        if(posicioSeleccionada!=NO_SELECCIONAT){
+            int pos = posicioSeleccionada;
+            cartes.remove(pos);
+            posicioSeleccionada = NO_SELECCIONAT;
+            notifyItemRemoved(pos);
+        }
+    }
+
+    public void moveSelectedItem(int i) {
+
+
+
+
+    }
+
     public interface CardAdapterListener{
         void onCardSelected(Card selected);
     }
@@ -62,8 +78,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Card current = cartes.get(position);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int XXX_DO_NOT_USE_ME) {
+        Card current = cartes.get(holder.getAdapterPosition());
         holder.txvName.setText(current.getName());
         holder.txvDesc.setText(current.getDesc());
         holder.imvPhoto.setImageResource(current.getDrawable());
@@ -75,7 +91,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         holder.llyRowConstraint.setBackgroundColor(
                 context.getColor(colors_per_rarity.get(r))
         );
-        if(position==posicioSeleccionada) {
+        if(holder.getAdapterPosition()==posicioSeleccionada) {
             holder.llyRow.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.selected)));
             holder.llyRowConstraint.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.selected)));
         } else {
@@ -87,6 +103,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         // Programació de l'event Click sobre la fila sencera
 
         holder.llyRow.setOnClickListener(view ->{
+            int position = holder.getAdapterPosition();
             if(this.posicioSeleccionada==position) {
                 // estic desmarcant la posició seleccionada
                 this.posicioSeleccionada = NO_SELECCIONAT;
