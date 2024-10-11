@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.milaifontanals.apprecyclerview.R;
 import org.milaifontanals.apprecyclerview.model.Card;
 import org.milaifontanals.apprecyclerview.model.Rarity;
@@ -37,9 +39,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     public void moveSelectedItem(int i) {
 
-
-
-
+        int currentPos = this.posicioSeleccionada;
+        int nextPos = currentPos+i;
+        if(nextPos>=0 && nextPos<cartes.size()) { // Estem dins del rang vàlid d'índexos
+            Card c = cartes.remove(currentPos);
+            cartes.add(nextPos, c);
+            posicioSeleccionada = nextPos;
+            notifyItemMoved(currentPos, nextPos);
+        }
     }
 
     public interface CardAdapterListener{
@@ -82,7 +89,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         Card current = cartes.get(holder.getAdapterPosition());
         holder.txvName.setText(current.getName());
         holder.txvDesc.setText(current.getDesc());
-        holder.imvPhoto.setImageResource(current.getDrawable());
+        //holder.imvPhoto.setImageResource(current.getDrawable());
+        Glide.with(context).load(current.getImageURL()).into(holder.imvPhoto);
+
         holder.txvCost.setText(""+current.getElixirCost());
 
         Log.d("CLASH_ROYALE", "Estic passant per onBind");
