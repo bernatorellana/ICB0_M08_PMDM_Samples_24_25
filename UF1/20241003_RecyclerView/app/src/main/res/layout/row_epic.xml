@@ -13,6 +13,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +22,9 @@
             android:background="@color/white"
             android:backgroundTintMode="src_atop"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF5722"
+            >
 
             <ImageView
                 android:id="@+id/imvPhoto"
@@ -38,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="4"
-                android:textSize="30sp"
+                android:textSize="40sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/txvDesc"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
@@ -50,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:text="Skeletons"
                 android:textStyle="bold"
+                android:textSize="40sp"
                 app:layout_constraintBottom_toTopOf="@id/txvDesc"
                 app:layout_constraintEnd_toStartOf="@+id/txvCost"
                 app:layout_constraintStart_toEndOf="@+id/guideline2"

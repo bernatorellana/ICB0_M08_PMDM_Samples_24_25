@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.CardActivity"
+    android:columnCount="2"
+    android:rowCount="7"
+    android:padding="20dp"
+
+    >
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center"
+        android:layout_columnSpan="2"
+        android:id="@+id/imvPhoto"
+        android:src="@drawable/giant"
+        android:layout_marginBottom="20dp"/>
+    <TextView android:text="Name:"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_columnWeight="1"
+        />
+    <EditText android:id="@+id/edtName"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_columnWeight="3"/>
+    <TextView android:text="Desc:"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_columnWeight="1"
+        />
+    <EditText android:id="@+id/edtDesc"
+android:inputType="textMultiLine"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:lines="5"
+        android:text="lkashdfkj hasl dkjf ha lsdkjf klajdfkljahsd fkjhsd fkjhs dfkjahs dkfjhas dkjf hasdkj aksdkasdkjahsd fjdsh lf"
+        android:layout_columnWeight="3"/>
+    <TextView android:text="Elixir cost:"
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_columnWeight="1"
+        />
+    <Spinner android:id="@+id/spnElixirCost"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_columnWeight="3"/>
+    <TextView android:text="Rarity:"
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_columnWeight="1"
+        />
+    <Spinner android:id="@+id/spnRarity"
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_columnWeight="3" />
+    <!-- View per espaiar els botons -->
+    <View android:layout_columnSpan="2"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_width="wrap_content"
+        android:layout_columnWeight="4"/>
+    <!-- Botonera -->
+    <Button
+        android:id="@+id/btnCancel"
+        android:text="Cancel"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:layout_width="wrap_content"
+        android:layout_gravity="start"
+        android:layout_columnWeight="1"></Button>
+    <Button
+        android:id="@+id/btnSave"
+        android:text="Save"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="end"
+        android:layout_columnWeight="3"></Button>
+</GridLayout>

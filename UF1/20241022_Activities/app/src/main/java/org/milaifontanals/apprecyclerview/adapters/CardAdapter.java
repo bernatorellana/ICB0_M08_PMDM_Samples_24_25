@@ -123,6 +123,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                 // estic desmarcant la posició seleccionada
                 this.posicioSeleccionada = NO_SELECCIONAT;
                 this.notifyItemChanged(position);
+                if(listener!=null) {
+                    listener.onCardSelected(null);
+                }
             } else {
                 // Hi ha un canvi d'element seleccionat
                 int posicioAnteriormentSeleccionada = this.posicioSeleccionada;
