@@ -65,25 +65,23 @@ public class Card implements Serializable
             _cartes.add(new Card(4, "Spear Goblins", Rarity.COMMON, "http://raw.githubusercontent.com/bernatorellana/ICB0_M08_PMDM_Samples_21_22/main/UF1/20220211_RecyclerView/app/src/main/res/drawable/spear_goblins.png",
                     " Three unarmored ranged attackers. Who the heck taught these guys to throw spears!? Who thought that was a good idea?!   ",
                     2 ));
-            _cartes.add(new Card(1, "Prince", Rarity.EPIC,
+            _cartes.add(new Card(5, "Prince", Rarity.EPIC,
                     "http://raw.githubusercontent.com/bernatorellana/ICB0_M08_PMDM_Samples_21_22/main/UF1/20220211_RecyclerView/app/src/main/res/drawable/prince.png",
                     "Don't let the little pony fool you. Once the Prince gets a running start, you WILL be trampled. Deals double damage once he gets charging. ",
                     5 ));
-            _cartes.add(new Card(2, "Skeleton Army", Rarity.RARE,
+            _cartes.add(new Card(6, "Skeleton Army", Rarity.RARE,
 
                     "http://raw.githubusercontent.com/bernatorellana/ICB0_M08_PMDM_Samples_21_22/main/UF1/20220211_RecyclerView/app/src/main/res/drawable/skeletons.png",
                     " Spawns an army of Skeletons. Meet Larry and his friends Harry, Gerry, Terry, Mary, etc. ",
                     3 ));
-            _cartes.add(new Card(3, "Giant", Rarity.RARE, "http://raw.githubusercontent.com/bernatorellana/ICB0_M08_PMDM_Samples_21_22/main/UF1/20220211_RecyclerView/app/src/main/res/drawable/giant.png",
+            _cartes.add(new Card(7, "Giant", Rarity.RARE, "http://raw.githubusercontent.com/bernatorellana/ICB0_M08_PMDM_Samples_21_22/main/UF1/20220211_RecyclerView/app/src/main/res/drawable/giant.png",
                     " Slow but durable, only attacks buildings. A real one-man wrecking crew!  ",
                     5 ));
-            _cartes.add(new Card(4, "Spear Goblins", Rarity.COMMON, "http://raw.githubusercontent.com/bernatorellana/ICB0_M08_PMDM_Samples_21_22/main/UF1/20220211_RecyclerView/app/src/main/res/drawable/spear_goblins.png",
+            _cartes.add(new Card(8, "Spear Goblins", Rarity.COMMON, "http://raw.githubusercontent.com/bernatorellana/ICB0_M08_PMDM_Samples_21_22/main/UF1/20220211_RecyclerView/app/src/main/res/drawable/spear_goblins.png",
                     " Three unarmored ranged attackers. Who the heck taught these guys to throw spears!? Who thought that was a good idea?!   ",
                     2 ));
         }
-
         return _cartes;
-
     }
 
     public Rarity getRarity() {

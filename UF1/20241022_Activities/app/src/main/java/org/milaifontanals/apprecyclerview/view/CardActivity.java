@@ -18,6 +18,7 @@ import org.milaifontanals.apprecyclerview.model.Card;
 import org.milaifontanals.apprecyclerview.model.Rarity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +59,7 @@ public class CardActivity extends AppCompatActivity {
            }
            idx++;
        }
+        // ================== Spinner de rarity ============================
         ArrayAdapter<String> rarityAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -65,13 +67,23 @@ public class CardActivity extends AppCompatActivity {
         binding.spnRarity.setAdapter(rarityAdapter);
         binding.spnRarity.setSelection(rarityIdx);
 
+        // ================== Spinner de cost ============================
+        Integer elixirCost[] = {1,2,3,4,5,6,7,8,9,10};
+        ArrayAdapter<Integer> costAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                Arrays.asList(elixirCost));
+        binding.spnElixirCost.setAdapter(costAdapter);
+        binding.spnElixirCost.setSelection(card.getElixirCost()-1);
 
+        // ================== Botons ============================
         binding.btnSave.setOnClickListener(view -> {
             Optional<Card> c = Card.getCartes().stream().filter(x -> x.getId()==card.getId()).findFirst();
             Card cardActual =  c.get();
             cardActual.setName(binding.edtName.getText().toString());
             cardActual.setDesc(binding.edtDesc.getText().toString());
             cardActual.setRarity( Rarity.values()[ binding.spnRarity.getSelectedItemPosition()]);
+            cardActual.setElixirCost((Integer) binding.spnElixirCost.getSelectedItem());
             //cardActual.setElixirCost();
             finish();
          });
