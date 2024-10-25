@@ -1,6 +1,7 @@
 package org.milaifontanals.apprecyclerview.view;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -70,5 +71,11 @@ public class MainActivity extends AppCompatActivity implements CardAdapter.CardA
             }
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        this.adapter.notifySelected();
     }
 }

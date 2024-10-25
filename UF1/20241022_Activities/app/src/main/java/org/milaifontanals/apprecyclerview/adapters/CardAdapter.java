@@ -49,6 +49,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         }
     }
 
+    public void notifySelected() {
+        notifyItemChanged(this.posicioSeleccionada);
+    }
+
     public interface CardAdapterListener{
         void onCardSelected(Card selected);
     }

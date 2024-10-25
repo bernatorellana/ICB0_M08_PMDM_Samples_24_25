@@ -19,6 +19,7 @@ import org.milaifontanals.apprecyclerview.model.Rarity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CardActivity extends AppCompatActivity {
 
@@ -42,7 +43,7 @@ public class CardActivity extends AppCompatActivity {
             return insets;
         });
 
-        card = (Card)this.getIntent().getSerializableExtra(PARAM_CARD);
+       card = (Card)this.getIntent().getSerializableExtra(PARAM_CARD);
 
        binding.edtName.setText(card.getName());
        binding.edtDesc.setText(card.getDesc());
@@ -63,5 +64,16 @@ public class CardActivity extends AppCompatActivity {
                 rarityList);
         binding.spnRarity.setAdapter(rarityAdapter);
         binding.spnRarity.setSelection(rarityIdx);
+
+
+        binding.btnSave.setOnClickListener(view -> {
+            Optional<Card> c = Card.getCartes().stream().filter(x -> x.getId()==card.getId()).findFirst();
+            Card cardActual =  c.get();
+            cardActual.setName(binding.edtName.getText().toString());
+            cardActual.setDesc(binding.edtDesc.getText().toString());
+            cardActual.setRarity( Rarity.values()[ binding.spnRarity.getSelectedItemPosition()]);
+            //cardActual.setElixirCost();
+            finish();
+         });
     }
 }
