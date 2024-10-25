@@ -100,7 +100,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         holder.txvName.setText(current.getName());
         holder.txvDesc.setText(current.getDesc());
         //holder.imvPhoto.setImageResource(current.getDrawable());
-        Glide.with(context).load(current.getImageURL()).into(holder.imvPhoto);
+
+        if(current.getBitmap()!=null){
+            holder.imvPhoto.setImageBitmap(current.getBitmap());
+        } else {
+            Glide.with(context).load(current.getImageURL()).into(holder.imvPhoto);
+        }
 
         holder.txvCost.setText(""+current.getElixirCost());
 

@@ -1,6 +1,10 @@
 package org.milaifontanals.apprecyclerview.view;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
@@ -85,7 +89,41 @@ public class CardActivity extends AppCompatActivity {
             cardActual.setRarity( Rarity.values()[ binding.spnRarity.getSelectedItemPosition()]);
             cardActual.setElixirCost((Integer) binding.spnElixirCost.getSelectedItem());
             //cardActual.setElixirCost();
+            if(imageBitmap!=null) {
+                cardActual.setBitmap(imageBitmap);
+            }
             finish();
          });
+
+        binding.imvPhoto.setOnClickListener(view -> {
+            ferFoto();
+        });
+    }
+
+
+
+
+    //*********************************************
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    private void ferFoto(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        } catch (ActivityNotFoundException e) {
+            // display error state to the user
+        }
+    }
+
+
+private Bitmap imageBitmap;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            imageBitmap = (Bitmap) extras.get("data");
+            binding.imvPhoto.setImageBitmap(imageBitmap);
+        }
     }
 }
