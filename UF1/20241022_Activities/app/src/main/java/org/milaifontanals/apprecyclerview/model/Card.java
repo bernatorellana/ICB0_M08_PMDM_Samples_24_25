@@ -1,9 +1,16 @@
 package org.milaifontanals.apprecyclerview.model;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import androidx.annotation.NonNull;
 
 import org.milaifontanals.apprecyclerview.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,16 +27,36 @@ public class Card implements Serializable
     boolean selected;
     String imageURL;
 
-    public Bitmap getBitmap() {
+    transient Bitmap bitmap;
+
+    public Bitmap getBitmap(Context c)
+    {
+        if(bitmap!=null) return bitmap;
+        File f = getImageFile(c);
+        bitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
         return bitmap;
     }
 
-    public void setBitmap(Bitmap bitmap) {
+    public void setBitmap(Bitmap bitmap, Context c) {
         this.bitmap = bitmap;
         imageURL = null;
+        // Desar la imatge a disc
+        File f = getImageFile(c);
+
+        try (FileOutputStream out = new FileOutputStream(f)) {
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+            // PNG is a lossless format, the compression factor (100) is ignored
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    Bitmap bitmap;
+    @NonNull
+    private File getImageFile(Context c) {
+        File rootAppFolder = c.getFilesDir();
+        File f = new File(rootAppFolder, "image"+this.getId()+".png");
+        return f;
+    }
 
 
     public Card(int id,  String nom, Rarity raresa, String imageURL,  String desc, int elixirCost) {

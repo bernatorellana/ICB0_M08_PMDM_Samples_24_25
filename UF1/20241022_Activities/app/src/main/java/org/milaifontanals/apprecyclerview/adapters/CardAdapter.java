@@ -101,8 +101,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         holder.txvDesc.setText(current.getDesc());
         //holder.imvPhoto.setImageResource(current.getDrawable());
 
-        if(current.getBitmap()!=null){
-            holder.imvPhoto.setImageBitmap(current.getBitmap());
+        if(current.getBitmap(context)!=null){
+            holder.imvPhoto.setImageBitmap(current.getBitmap(context));
         } else {
             Glide.with(context).load(current.getImageURL()).into(holder.imvPhoto);
         }

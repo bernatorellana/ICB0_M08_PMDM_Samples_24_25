@@ -21,6 +21,9 @@ import org.milaifontanals.apprecyclerview.databinding.ActivityCardBinding;
 import org.milaifontanals.apprecyclerview.model.Card;
 import org.milaifontanals.apprecyclerview.model.Rarity;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -52,8 +55,11 @@ public class CardActivity extends AppCompatActivity {
 
        binding.edtName.setText(card.getName());
        binding.edtDesc.setText(card.getDesc());
-       Glide.with(this).load(card.getImageURL()).into(binding.imvPhoto);
-
+       if(card.getBitmap(this)!=null){
+           binding.imvPhoto.setImageBitmap(card.getBitmap(this));
+       } else {
+           Glide.with(this).load(card.getImageURL()).into(binding.imvPhoto);
+       }
        int idx = 0, rarityIdx = 0;
        List<String> rarityList = new ArrayList<>();
        for(Rarity r:Rarity.values()){
@@ -90,7 +96,7 @@ public class CardActivity extends AppCompatActivity {
             cardActual.setElixirCost((Integer) binding.spnElixirCost.getSelectedItem());
             //cardActual.setElixirCost();
             if(imageBitmap!=null) {
-                cardActual.setBitmap(imageBitmap);
+                cardActual.setBitmap(imageBitmap, this);
             }
             finish();
          });
@@ -120,10 +126,13 @@ private Bitmap imageBitmap;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
             binding.imvPhoto.setImageBitmap(imageBitmap);
+            card.setBitmap(imageBitmap,this);
+
         }
     }
 }
