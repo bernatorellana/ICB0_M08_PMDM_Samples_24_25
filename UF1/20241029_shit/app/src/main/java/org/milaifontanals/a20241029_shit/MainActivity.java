@@ -7,24 +7,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.milaifontanals.a20241029_shit.databinding.ActivityMainBinding;
+import org.milaifontanals.a20241029_shit.viewmodels.MainActivityViewModel;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-
-    int scoreLocal=0, scoreVisitant=0;
+    MainActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.txvLocal.setText(""+scoreLocal);
-        binding.txvVisitant.setText(""+scoreVisitant);
+        binding.txvLocal.setText(""+viewModel.getScoreLocal());
+        binding.txvVisitant.setText(""+viewModel.getScoreVisitant());
+        showTime();
+
+        viewModel.getTime().observe(this,date -> {
+            showTime(); // actualitza la data
+        });
+
 
         binding.btnVisitant.setOnClickListener(view -> incVisitant(+1) );
 
@@ -46,15 +58,31 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+        viewModel.resumeTimer();
+
+    }
+
+
+    private void showTime() {
+        DecimalFormat df = new DecimalFormat("00");
+        binding.txvCrono.setText(
+                df.format(viewModel.getTime().getValue().getMinutes())
+                +":"+
+                df.format(viewModel.getTime().getValue().getSeconds())
+        );
     }
 
     private void incVisitant(int inc) {
-        scoreVisitant+=inc;
-        binding.txvVisitant.setText(""+scoreVisitant);
+        //scoreVisitant+=inc;
+        viewModel.incScoreVisitant(inc);
+        binding.txvVisitant.setText(""+viewModel.getScoreVisitant());
     }
 
     private void incLocal(int inc) {
-        scoreLocal+=inc;
-        binding.txvLocal.setText(""+scoreLocal);
+        //scoreLocal+=inc;
+        viewModel.incScoreLocal(inc);
+        binding.txvLocal.setText(""+viewModel.getScoreLocal());
     }
 }
