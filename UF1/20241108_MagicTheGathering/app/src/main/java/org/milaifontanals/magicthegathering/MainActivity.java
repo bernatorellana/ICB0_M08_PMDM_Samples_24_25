@@ -5,6 +5,8 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import org.milaifontanals.magicthegathering.model.Card;
 import org.milaifontanals.magicthegathering.model.Example;
 import org.milaifontanals.magicthegathering.utils.NetworkUtils;
+import org.milaifontanals.magicthegathering.viewmodel.MainActivityViewModel;
+
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -28,6 +31,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private MainActivityViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,28 +45,10 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Callable<List<Card>> callable = () -> {
-            // Perform some task here
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
-            String json = NetworkUtils.downloadResource("https://api.magicthegathering.io/v1/cards");
-
-            Gson gson = new Gson();
-            Example e = gson.fromJson(json, Example.class);
-            return e.getCards();
-        };
-
-        Observable<List<Card>> observable = Observable.fromCallable(callable);
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        (result) -> { Toast.makeText(
-                                MainActivity.this, "Completed:"+result.get(0).getName(),
-                                Toast.LENGTH_SHORT).show(); },
-                        error -> { Toast.makeText(
-                                    this, "Error:"+error,
-                                            Toast.LENGTH_SHORT).show(); }
-
-                );
-
+        viewModel.getCardList().observe(this,cards -> {
+            Toast.makeText(this, cards.get(0).getName(), Toast.LENGTH_SHORT).show();
+        });
     }
 }
