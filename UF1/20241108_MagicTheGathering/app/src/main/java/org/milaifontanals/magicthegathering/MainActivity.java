@@ -2,6 +2,7 @@ package org.milaifontanals.magicthegathering;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+import org.milaifontanals.magicthegathering.adapter.CardAdapter;
 import org.milaifontanals.magicthegathering.model.Card;
 import org.milaifontanals.magicthegathering.model.Example;
 import org.milaifontanals.magicthegathering.utils.NetworkUtils;
@@ -16,23 +17,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 
-import java.io.StringReader;
-import java.util.List;
-import java.util.concurrent.Callable;
-
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private MainActivityViewModel viewModel;
+    private CardAdapter adapter;
+    private RecyclerView rcyCardList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel.getCardList().observe(this,cards -> {
             Toast.makeText(this, cards.get(0).getName(), Toast.LENGTH_SHORT).show();
+
+            adapter = new CardAdapter(cards, this);
+            rcyCardList.setAdapter(adapter);
         });
+
+        rcyCardList = findViewById(R.id.rcyCardList);
+        rcyCardList.setHasFixedSize(true);
+        rcyCardList.setLayoutManager(new GridLayoutManager(this,2));
     }
 }
