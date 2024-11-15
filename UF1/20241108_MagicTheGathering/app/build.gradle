@@ -6,6 +6,10 @@ android {
     namespace 'org.milaifontanals.magicthegathering'
     compileSdk 34
 
+    dataBinding {
+        enabled = true
+    }
+
     buildFeatures {
         viewBinding true
     }

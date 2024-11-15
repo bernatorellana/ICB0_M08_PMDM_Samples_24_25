@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
@@ -31,7 +32,7 @@ public class MainActivityViewModel extends AndroidViewModel {
         descarregaCartes();
     }
 
-    public MutableLiveData<List<Card>> getCardList() {
+    public LiveData<List<Card>> getCardList() {
         return cardList;
     }
 
