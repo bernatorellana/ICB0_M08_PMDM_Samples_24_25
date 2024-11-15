@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MagicTheGathering</string>
+    <string name="num_cards">Numero</string>
 </resources>
