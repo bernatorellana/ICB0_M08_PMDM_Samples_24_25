@@ -17,35 +17,36 @@
        android:layout_height="match_parent"
        tools:context=".MainActivity">
 
-
-      <androidx.recyclerview.widget.RecyclerView
-          android:layout_marginTop="30dp"
-          android:id="@+id/rcyCardList"
+      <LinearLayout
           android:layout_width="match_parent"
-          android:layout_height="match_parent">
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+         <TextView
+             android:id="@+id/txvNumero"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="@{context.getString(R.string.num_cards)+`:`+viewmodel.cardList.size()}"
+             android:textAlignment="center"
+             android:textColor="#B90000"
+             android:textSize="40dp">
 
-      </androidx.recyclerview.widget.RecyclerView>
+         </TextView>
+         <androidx.recyclerview.widget.RecyclerView
+             android:id="@+id/rcyCardList"
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="1">
 
-      <TextView
-          android:id="@+id/txvNumero"
-          android:layout_alignParentTop="true"
-          android:layout_alignParentStart="true"
-          android:layout_alignParentEnd="true"
-          android:layout_alignBottom="@id/rel"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAlignment="center"
-          android:text="@{context.getString(R.string.num_cards)+`:`+viewmodel.cardList.size()}"
-          android:textColor="#B90000"
-          android:textSize="40dp">
+         </androidx.recyclerview.widget.RecyclerView>
 
-      </TextView>
 
+      </LinearLayout>
       <RelativeLayout
           android:id="@+id/rel"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:layout_alignTop="@+id/rcyCardList"
+          android:layout_below="@id/txvNumero"
+         android:layout_alignParentTop="true"
           android:layout_alignParentStart="true"
           android:layout_alignParentEnd="true"
           android:layout_alignParentBottom="true"
