@@ -1,16 +1,10 @@
 package org.milaifontanals.magicthegathering;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-
 import org.milaifontanals.magicthegathering.adapter.CardAdapter;
 import org.milaifontanals.magicthegathering.databinding.ActivityMainBinding;
-import org.milaifontanals.magicthegathering.model.Card;
-import org.milaifontanals.magicthegathering.model.Example;
-import org.milaifontanals.magicthegathering.utils.NetworkUtils;
 import org.milaifontanals.magicthegathering.viewmodel.MainActivityViewModel;
 
 import android.os.Bundle;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -21,8 +15,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 
 
 public class MainActivity extends AppCompatActivity {
