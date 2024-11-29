@@ -51,7 +51,7 @@ public class MainActivityViewModel extends AndroidViewModel {
         // Instanciar retrofit per fer servir les crides a la API de màgic
         MagicAPI service =  MagicApiService.getMagicAPI();
 
-        service.getCards().subscribeOn(Schedulers.io())
+        service.getCardsPerColor("White").subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         (result) -> {
