@@ -23,4 +23,15 @@ public class Monster {
     @ColumnInfo(name = "category_id")
     public int categoryId;
 
+
+    @Override
+    public String toString() {
+        return "Monster{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", categoryId=" + categoryId +
+                '}';
+    }
 }

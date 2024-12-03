@@ -1,4 +1,4 @@
-package org.milaifontanals.roomdemo.db.model;
+package org.milaifontanals.roomdemo.db;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -6,14 +6,25 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import org.milaifontanals.roomdemo.db.model.Category;
+import org.milaifontanals.roomdemo.db.model.Monster;
+
 import java.util.List;
+
+import io.reactivex.rxjava3.core.Single;
 
 @Dao
 public interface BestiaryDAO {
 
 
+    @Query("SELECT count(id) FROM monster")
+    int getMonstersCount();
+
     @Query("SELECT * FROM monster")
-    List<Monster> getAll();
+    Single<List<Monster>> getAll();
+
+    @Query("SELECT * FROM monster")
+    List<Monster> getAllSync();
 
     @Query("SELECT * FROM monster WHERE id = :id")
     Monster getMonsterById(int id);
@@ -31,19 +42,15 @@ public interface BestiaryDAO {
     void insertMonster(Monster monster);
 
     @Insert
-    void insertCategory(Category category);
-
+    long insertCategory(Category category);
+    @Update
+    void updateCategory(Category category);
+    @Delete
+    void deleteCategory(Category category);
     @Query("SELECT * FROM category")
     List<Category> getAllCategories();
 
     @Query("SELECT * FROM category WHERE id = :id")
     Category getCategoryById(int id);
-
-    @Update
-    void updateCategory(Category category);
-
-    @Delete
-    void deleteCategory(Category category);
-
 
 }
