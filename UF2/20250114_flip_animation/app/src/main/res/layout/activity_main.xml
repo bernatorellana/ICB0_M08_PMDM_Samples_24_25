@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#563343"
+    tools:context=".MainActivity">
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardBack"
+        android:rotationY="180"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        app:cardCornerRadius="10dp"
+        android:outlineSpotShadowColor="#00ffffff"
+
+        app:cardBackgroundColor="#EDAFED"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_margin="10dp"
+            android:background="#00FFFFFF"
+            android:layout_width="wrap_content"
+            android:src="@drawable/back"
+            android:layout_height="200dp"
+            android:scaleType="centerInside"
+            >
+
+        </ImageView>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:outlineSpotShadowColor="#00ffffff"
+        android:id="@+id/cardFront"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="#EDAFED"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+        <ImageView
+            android:id="@+id/imgFront"
+            android:layout_margin="10dp"
+            android:background="#00FFFFFF"
+            android:layout_width="wrap_content"
+            android:src="@drawable/front"
+            android:layout_height="200dp"
+            android:scaleType="centerInside"
+            >
+
+        </ImageView>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
