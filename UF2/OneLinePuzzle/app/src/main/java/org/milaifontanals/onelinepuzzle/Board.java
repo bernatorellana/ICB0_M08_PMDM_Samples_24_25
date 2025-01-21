@@ -40,4 +40,8 @@ public class Board {
     public int getQY() {
         return QY;
     }
+
+    public boolean esObstacle(int x, int y) {
+        return (board[x][y] == 1);
+    }
 }
