@@ -14,6 +14,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +29,7 @@ public class BoardView extends View {
 
     private enum Estat {
         IDLE,
-        DRAWING
+        WIN, DRAWING
     }
 
     private Estat estat = Estat.IDLE;
@@ -70,14 +71,7 @@ public class BoardView extends View {
                     yBoard = (this.getHeight() -
                             (cellSize + marge) * board.getQY()) / 2;
 
-                    currentPath = new ArrayList<>();
-                    Point p = board.getInici();
-                    currentPath.add(convertCell2PixelCoords(p) );
-                    //p.x+=1;
-                    //currentPath.add(convertCell2PixelCoords(p) );
-                    //p.y+=1;
-                    //currentPath.add(convertCell2PixelCoords(p) );
-
+                    initPath();
 
 
                     Log.d("XXX", "wBoard: " + wBoard + " xBoard: " + xBoard + " yBoard: " + yBoard + " cellSize: " + cellSize);
@@ -87,6 +81,12 @@ public class BoardView extends View {
 
     }
 
+    private void initPath() {
+        currentPath = new ArrayList<>();
+        Point p = board.getInici();
+        currentPath.add(convertCell2PixelCoords(p) );
+    }
+
     @NonNull
     private Point convertCell2PixelCoords(Point p) {
         return new Point(
@@ -94,32 +94,59 @@ public class BoardView extends View {
                 (int) (yBoard + cellSizeAmbMarge * p.y + cellSize * 0.5f));
     }
     private Point convertPixel2CellCoords(Point p) {
-        return new Point(
+        Point res =  new Point(
                 (int) ((p.x - xBoard) / cellSizeAmbMarge),
                 (int) ((p.y - yBoard) / cellSizeAmbMarge));
+        // Verifiquem el fora de rang
+        if( res.x < 0 ||
+            res.x >= board.getQX() ||
+            res.y < 0 ||
+            res.y >= board.getQY()) return null;
+        else return res;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
+
+        if(estat==Estat.WIN) return true;
+
         Point c = convertPixel2CellCoords(new Point((int) event.getX(), (int) event.getY()));
 
         if(estat==Estat.IDLE) {
-            if(c.equals(board.getInici())){
-                estat = Estat.DRAWING;
+            if(c!=null && c.equals(board.getInici())){
+                setEstat(Estat.DRAWING);
             }
         } else if (estat==Estat.DRAWING) {
+            if(c==null) {
+                setEstat(Estat.IDLE);
+            } else
             if(event.getActionMasked()==MotionEvent.ACTION_UP){
-                estat = Estat.IDLE;
-            } else {
+                setEstat(Estat.IDLE);
+            } else { // estem arrossegant
                 if(board.esObstacle(c.x, c.y)){
-                    estat = Estat.IDLE;
+                    setEstat(Estat.IDLE);
                 } else {
+                    // No és obstacle
                     Point p = convertCell2PixelCoords(c);
+                    Point last = currentPath.get(currentPath.size()-1);
+                     if(!currentPath.contains(p)) {
+                         // És un punt nou, verifiquem que no estigui en diagonal
+                         if(last.x==p.x||last.y==p.y) {
+                             currentPath.add(p);
+                             if(currentPath.size() == board.getFreeCells()){
+                                setEstat(Estat.WIN);
+                             }
 
-                 if(!currentPath.contains(p)) {
-                     currentPath.add(p);
-                 }
+                         } else {
+                             setEstat(Estat.IDLE); // "No te vayas pa'l campo"
+                         }
+                     } else {
+                        if(!p.equals(last)) {
+                            //estic xocant amb un altre fragment del camí
+                            setEstat(Estat.IDLE);
+                        }
+                     }
                 }
             }
         }
@@ -128,6 +155,25 @@ public class BoardView extends View {
         //currentPath.add(convertCell2PixelCoords(c));
         invalidate();
         return true;
+    }
+
+    private void setEstat(Estat estat) {
+        this.estat = estat;
+
+        switch (estat){
+            case IDLE: {
+                initPath();
+                break;
+            }
+            case DRAWING: {
+                break;
+            }
+            case WIN:{
+                Toast.makeText(this.getContext(), "Has guanyat!", Toast.LENGTH_LONG).show();
+                SoundPlayer.playSound(getContext(), R.raw.tadaa);
+                break;
+            }
+        }
     }
 
     @Override
@@ -178,6 +224,7 @@ public class BoardView extends View {
             }
             lp = cp;
         }
+        // Dibuixem el camí
         Paint brochaGorda = new Paint();
         brochaGorda.setColor(Color.parseColor("#66ff0088"));
         brochaGorda.setStrokeWidth(cellSize*0.8f);

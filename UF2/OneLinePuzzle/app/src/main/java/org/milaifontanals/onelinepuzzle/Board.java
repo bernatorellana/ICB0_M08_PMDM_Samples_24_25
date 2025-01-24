@@ -10,7 +10,10 @@ public class Board {
 
     Point inici;
 
+    int obstacles;
+
     public Board(Point p, int obstacles){
+        this.obstacles = obstacles;
         board = new int[QX][QY];
         inici = p;
         board[p.x][p.y] = 2;
@@ -43,5 +46,9 @@ public class Board {
 
     public boolean esObstacle(int x, int y) {
         return (board[x][y] == 1);
+    }
+
+    public int getFreeCells() {
+        return getQX() * getQY() - this.obstacles;
     }
 }
