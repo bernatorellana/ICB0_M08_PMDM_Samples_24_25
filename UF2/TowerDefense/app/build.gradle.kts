@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "org.milaifontanals.towerdefense"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "org.milaifontanals.towerdefense"
