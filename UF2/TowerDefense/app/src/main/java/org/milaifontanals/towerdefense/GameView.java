@@ -23,7 +23,7 @@ public class GameView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawBitmap(board.getBackground(), 0, 0, null);
+        canvas.drawBitmap(board.getDistancies(), 0, 0, null);
     }
 
 

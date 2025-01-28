@@ -1,5 +1,6 @@
 package org.milaifontanals.towerdefense;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,8 +37,16 @@ public class Board {
     }
 
     public Board(Context c){
+
+        int W = c.getResources().getDisplayMetrics().widthPixels;
+        int H = c.getResources().getDisplayMetrics().heightPixels;
+
+
         background = BitmapFactory.decodeResource( c.getResources(),  R.drawable.tower);
+        background = BitmapResampler.scaleBitmapWithCanvas(background, W, H);
+
         mask = BitmapFactory.decodeResource( c.getResources(),  R.drawable.tower_map);
+        mask = BitmapResampler.scaleBitmapWithCanvas(mask, W, H);
 
         distancies = Bitmap.createBitmap(mask.getWidth(), mask.getHeight(), Bitmap.Config.ARGB_8888);
         distanciesArray = new float[mask.getWidth()][mask.getHeight()];
@@ -51,6 +60,7 @@ public class Board {
         expandeixPuntDesti();
     }
 
+    @SuppressLint("NewApi")
     private void expandeixPuntDesti() {
 
         LinkedList<Point> llistaPunts = new LinkedList<>();
@@ -77,6 +87,10 @@ public class Board {
                                 delta[i][1] * delta[i][1]);
                 if (distanciesArray[p.x][p.y]>novaDistancia ) {
                     distanciesArray[p.x][p.y] = novaDistancia;
+
+                    distancies.setPixel(p.x, p.y,
+                            Color.rgb(novaDistancia, novaDistancia, novaDistancia));
+
                     llistaPunts.add(p);
                 }
             }
