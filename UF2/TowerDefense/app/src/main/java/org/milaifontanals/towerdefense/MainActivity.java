@@ -21,6 +21,5 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Board b = new Board(this);
     }
 }

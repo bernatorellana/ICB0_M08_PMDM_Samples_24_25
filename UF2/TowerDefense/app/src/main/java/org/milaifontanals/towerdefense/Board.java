@@ -19,6 +19,22 @@ public class Board {
     private float[][] distanciesArray;
     private Point mDesti;
 
+    public Bitmap getBackground() {
+        return background;
+    }
+
+    public Bitmap getMask() {
+        return mask;
+    }
+
+    public Bitmap getDistancies() {
+        return distancies;
+    }
+
+    public Point getmDesti() {
+        return mDesti;
+    }
+
     public Board(Context c){
         background = BitmapFactory.decodeResource( c.getResources(),  R.drawable.tower);
         mask = BitmapFactory.decodeResource( c.getResources(),  R.drawable.tower_map);
