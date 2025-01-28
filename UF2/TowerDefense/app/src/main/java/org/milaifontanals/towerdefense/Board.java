@@ -89,7 +89,9 @@ public class Board {
                     distanciesArray[p.x][p.y] = novaDistancia;
 
                     distancies.setPixel(p.x, p.y,
-                            Color.rgb(novaDistancia, novaDistancia, novaDistancia));
+                            Color.rgb((int)(novaDistancia/10),
+                                    (int)(novaDistancia/10),
+                                    (int)(novaDistancia/10)));
 
                     llistaPunts.add(p);
                 }
