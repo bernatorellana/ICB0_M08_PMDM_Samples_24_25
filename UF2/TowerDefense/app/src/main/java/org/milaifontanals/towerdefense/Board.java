@@ -7,8 +7,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Board {
 
@@ -19,6 +21,13 @@ public class Board {
     private Bitmap distancies;
     private float[][] distanciesArray;
     private Point mDesti;
+
+
+    public float[][] getDistanciesArray() {
+        return distanciesArray;
+    }
+
+    private List<Point> spawnPoints = new ArrayList<>();
 
     public Bitmap getBackground() {
         return background;
@@ -34,6 +43,10 @@ public class Board {
 
     public Point getmDesti() {
         return mDesti;
+    }
+
+    public List<Point> getSpawnPoints() {
+        return spawnPoints;
     }
 
     public Board(Context c){
@@ -112,9 +125,13 @@ public class Board {
                 if(b>250){
                     // Punt de destí
                     mDesti = new Point(x,y);
+                } else if(g>250){
+                    // Punt de spawn
+                    spawnPoints.add(new Point(x,y));
                 }
             }
         }
+        while(spawnPoints.size()>2) spawnPoints.remove(1);
     }
 
 
