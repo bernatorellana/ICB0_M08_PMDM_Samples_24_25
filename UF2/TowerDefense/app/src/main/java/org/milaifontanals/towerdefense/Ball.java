@@ -17,7 +17,7 @@ public class Ball extends GameObject {
 
     @Override
     public void draw(Canvas c) {
-        c.drawCircle(position.x, position.y, 50, paint);
+        c.drawCircle(getPosition().x, getPosition().y, 50, paint);
     }
 
     @Override
@@ -30,17 +30,17 @@ public class Ball extends GameObject {
         int[][] delta = {
                 {1, 0}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {-1, -1}, {1, -1}, {-1, 1}
         };
-        float min = distanciesArray[position.x][position.y];
-        Point candidat=position;
+        float min = distanciesArray[getPosition().x][getPosition().y];
+        Point candidat=getPosition();
         for (int i = 0; i < delta.length; i++) {
-            Point p = new Point(position.x + 5*delta[i][0],
-                                position.y + 5*delta[i][1]);
+            Point p = new Point(getPosition().x + 5*delta[i][0],
+                    getPosition().y + 5*delta[i][1]);
             if( distanciesArray[p.x][p.y]<min) {
                 min = distanciesArray[p.x][p.y];
                 candidat = p;
             }
         }
-        this.position = candidat;
+        this.setPosition(candidat);
 
 
 

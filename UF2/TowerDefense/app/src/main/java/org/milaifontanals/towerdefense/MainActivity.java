@@ -10,6 +10,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    //https://www.spriters-resource.com/pc_computer/ragnarokonline/sheet/126681/
+    //https://www.spriters-resource.com/pc_computer/ragnarokonline/sheet/126783/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

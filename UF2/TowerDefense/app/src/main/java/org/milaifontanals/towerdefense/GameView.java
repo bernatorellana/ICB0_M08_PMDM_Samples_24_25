@@ -2,6 +2,7 @@ package org.milaifontanals.towerdefense;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -31,8 +32,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 
         board = new Board(context);
-        Ball b1 = new Ball(this, board.getSpawnPoints().get(0));
-        Ball b2 = new Ball(this, board.getSpawnPoints().get(1));
+        Sprite b1 = new PirateSprite(this, board.getSpawnPoints().get(0));
+        Sprite b2 = new PirateSprite(this, board.getSpawnPoints().get(1));
+        FireballTurret turret = new FireballTurret(this, new Point(500,1000));
+        gameObjects.add(turret);
         gameObjects.add(b1);
         gameObjects.add(b2);
     }
@@ -55,9 +58,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void runTurn() {
-        for (GameObject go : gameObjects) {
+        for(int i=0;i<gameObjects.size();i++) {
+            GameObject go = gameObjects.get(i);
             go.update();
         }
+
+
     }
 
     public void paintScene(Canvas c) {
@@ -72,5 +78,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public Board getBoard() {
         return board;
+    }
+
+    public List<GameObject> getGameObjects() {
+        return gameObjects;
     }
 }
